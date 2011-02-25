@@ -2,7 +2,7 @@
     appDir: "../",
     dir: "../../nativeweb-build",
     modules: [
-        { name: "app" }
+        { name: "main" }
     ],
     inlineText: true
 })
