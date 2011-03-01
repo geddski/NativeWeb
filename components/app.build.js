@@ -1,8 +1,10 @@
 ({
     appDir: "../",
+    baseUrl: "components/",
     dir: "../../nativeweb-build",
     modules: [
-        { name: "main" }
+        { name: "main" },
+        { name: "tests" }
     ],
     inlineText: true
 })
