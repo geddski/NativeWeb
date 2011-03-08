@@ -8,23 +8,26 @@ define(["https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js", "qun
         });
 
         //test control.js
+        module("control.js");
         test("mapFields test", function(){
-            //put some html into the dom
-            var html = "<div data-field=title>My Title</div>";
-            var elem = $('body').append(html);
-            var module = {
-                title: ''
-            }
+            //setup
+            var elem = $("<div><h1 data-field='title'>My Title</h1></div>");
+            elem.appendTo('body');
+            
+            var module = { title: '' };
             //enable controlling
             control.mapFields(module, elem, ['title']);
 
             //test changing text value
             module.title.text('New Title');
-            equals("New Title", module.title.text(), "Title should be 'New Title'");
+            equals(module.title.text(), "New Title", "Title should be 'New Title'");
 
             //test changing css
             module.title.css('color', 'rgb(0, 255, 0)');
-            equals("rgb(0, 255, 0)", module.title.css('color'), "color should be rgb(0, 255, 0)");
+            equals(module.title.css('color'), "rgb(0, 255, 0)", "color should be rgb(0, 255, 0)");
+
+            //teardown
+            elem.remove();
         });
     });
 });
