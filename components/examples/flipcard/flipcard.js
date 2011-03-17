@@ -4,7 +4,10 @@ define(['text!examples/flipcard/flipcard.html', 'utils/control', 'examples/testm
         this.id = id;
         this.element = $(html);
         var instance = this;
+       //wire up fields mapped to DOM elements
         control.mapFields(this, this.element, ['title']);
+
+       //events
         this.element.click(function(){
             instance.element.toggleClass('active');
             //todo fire custom event
