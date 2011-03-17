@@ -9,6 +9,7 @@
         { name: "main" },
         { name: "tests" }
     ],
+    optimizeCss: "standard",
 //    optimize: "none",
     inlineText: true
 })
