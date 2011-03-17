@@ -8,7 +8,7 @@ define(function(){
                 object[field] = element.find('[data-field]='+field).removeAttr('data-field');
             }
         }
-    }
+    };
 });
 
 

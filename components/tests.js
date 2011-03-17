@@ -1,4 +1,12 @@
-define(["https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js", "qunit", "utils/control"], function(jQueryNull, qunitNull, control){
+//Configure RequireJS
+require({
+    paths:{
+        'jquery': 'https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min'
+    },
+    priority: ['jquery']
+});
+
+require(["jquery", "qunit", "utils/control"], function($, qunitNull, control){
     $(document).ready(function(e){
         //sample test
         test("sample test", function() {
@@ -14,17 +22,17 @@ define(["https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js", "qun
             var elem = $("<div><h1 data-field='title'>My Title</h1></div>");
             elem.appendTo('body');
             
-            var module = { title: '' };
+            var object = { title: '' };
             //enable controlling
-            control.mapFields(module, elem, ['title']);
+            control.mapFields(object, elem, ['title']);
 
             //test changing text value
-            module.title.text('New Title');
-            equals(module.title.text(), "New Title", "Title should be 'New Title'");
+            object.title.text('New Title');
+            equals(object.title.text(), "New Title", "Title should be 'New Title'");
 
             //test changing css
-            module.title.css('color', 'rgb(0, 255, 0)');
-            equals(module.title.css('color'), "rgb(0, 255, 0)", "color should be rgb(0, 255, 0)");
+            object.title.css('color', 'rgb(0, 255, 0)');
+            equals(object.title.css('color'), "rgb(0, 255, 0)", "color should be rgb(0, 255, 0)");
 
             //teardown
             elem.remove();
