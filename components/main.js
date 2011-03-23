@@ -6,7 +6,7 @@ require({
     priority: ['jquery']
 });
 
-require(['jquery', 'examples/flipcard/flipcard'], function($, FlipCard){
+require(['jquery', 'css!../css/theme.css', 'examples/flipcard/flipcard'], function($, css, FlipCard){
     var container = $('#container');
 
     var flipCard = new FlipCard(1);

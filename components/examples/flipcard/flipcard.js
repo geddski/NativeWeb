@@ -1,4 +1,4 @@
-define(['text!examples/flipcard/flipcard.html', 'utils/control', 'examples/testmodule/testmodule', 'css!examples/testmodule/testmodule.css', 'css!examples/flipcard/flipcard.css', 'css!examples/flipcard/test2.css', 'css!examples/flipcard/test3.css', 'css!examples/flipcard/test4.css'], function(html, control){
+define(['text!examples/flipcard/flipcard.html', 'utils/control', 'examples/testmodule/testmodule', 'css!examples/flipcard/flipcard.css,examples/flipcard/test2.css,examples/flipcard/test3.css,examples/flipcard/test4.css'], function(html, control, testmodule, css){
 //define(['text!examples/flipcard/flipcard.html', 'utils/control'], function(html, control){
    function FlipCard(id){
         this.id = id;
