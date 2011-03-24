@@ -1,4 +1,3 @@
-define(['utils/css'], function(css){
-    css.loadInternal('examples/testmodule/testmodule.css');
+define(['css!examples/testmodule/testmodule.css'], function(){
     return {};
 });
