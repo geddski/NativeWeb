@@ -1,9 +1,14 @@
-define(['text!examples/flipcard/flipcard.html', 'utils/control', 'examples/testmodule/testmodule', 'css!examples/flipcard/flipcard.css,examples/flipcard/test2.css,examples/flipcard/test3.css,examples/flipcard/test4.css'], function(html, control, testmodule, css){
-//define(['text!examples/flipcard/flipcard.html', 'utils/control'], function(html, control){
+define(['utils/css', 'utils/control', 'text!examples/flipcard/flipcard.html', 'examples/testmodule/testmodule'], function(css, control, html, testmodule, flipcardStyles, styles2, styles3, styles4 ){
+   css.loadInternal('examples/flipcard/flipcard.css');
+   css.loadInternal('examples/flipcard/test2.css');
+   css.loadInternal('examples/flipcard/test3.css');
+   css.loadInternal('examples/flipcard/test4.css');
+
    function FlipCard(id){
         this.id = id;
         this.element = $(html);
         var instance = this;
+
        //wire up fields mapped to DOM elements
         control.mapFields(this, this.element, ['title']);
 
