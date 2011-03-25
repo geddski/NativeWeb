@@ -1,12 +1,17 @@
 //Configure RequireJS
 require({
     paths:{
-        'jquery': 'https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min'
+//        'jquery': 'https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min'
+        'jquery': 'jquery'
     },
     priority: ['jquery']
 });
 
-require(['jquery', 'css!../css/theme.css', 'examples/flipcard/flipcard'], function($, css, FlipCard){
+require(['jquery', 'utils/css', 'examples/flipcard/flipcard', 'text!../css/reset.css', 'text!../css/theme.css'], function($, css, FlipCard, reset, theme){
+    console.log("main.js");
+    css.loadInternal(reset, '../css/reset.css', true);
+    css.loadInternal(theme, '../css/theme.css');
+
     var container = $('#container');
 
     var flipCard = new FlipCard(1);
