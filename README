@@ -1,2 +1,6 @@
-This is an example application demonstrating how to build Native Web applications. To run the build tool cd into components, then run ../../requirejs-0.24.0/build/build.sh app.build.js
+This is an example application demonstrating how to build Native Web applications.
+To run the build tool cd into components, then run
+../../requirejs-0.24.0/build/build.sh app.build.js
 This assumes you have node installed for the build tool.
+To speed up testing your built app, you can delete your build project with this (rename to your build dir):
+rm -rf ../../nativeweb-build/
