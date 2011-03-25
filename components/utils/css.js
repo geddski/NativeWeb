@@ -2,27 +2,27 @@ define(function(){
     var loadedStyleTags = [];
     var head = document.getElementsByTagName("head")[0];
     
-    function insertStyleTag(styles, resourceName){
+    function insertStyleTag(styles, resourceName, isPlacedAtTop){
         if(typeof window !== "undefined" && window.navigator && window.document){
             //prevent adding new style tag if it already exists
-            if(loadedStyleTags.indexOf(resourceName) != -1){
-                return;
-            }
+            if(loadedStyleTags.indexOf(resourceName) != -1){ return; }
+            
             var style = document.createElement("style");
             style.type = "text/css";
             style.innerHTML = styles;
             style.setAttribute("data-name", resourceName);
-            head.appendChild(style);
+            if(isPlacedAtTop){
+                head.insertBefore(style, head.firstChild);
+            }
+            else{
+                head.appendChild(style);
+            }
             loadedStyleTags.push(resourceName);
         }
     }
 
-    function loadInternal(resourceName){
-        //note: order appears to be working, needs further testing
-        //load as internal CSS , uses the text plugin
-        require(['text!' + resourceName], function (styles) {
-            insertStyleTag(styles, resourceName);
-        });
+    function loadInternal(styles, resourceName, isPlacedAtTop){
+        insertStyleTag(styles, resourceName, isPlacedAtTop);
     }
 
     function insertLinkTag(url){
