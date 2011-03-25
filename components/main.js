@@ -7,6 +7,7 @@ require({
 });
 
 require(['jquery', 'utils/css', 'examples/flipcard/flipcard'], function($, css, FlipCard){
+    console.log("main.js");
     css.loadInternal('../css/theme.css');
 
     var container = $('#container');

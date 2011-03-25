@@ -1,5 +1,6 @@
 define(['utils/css', 'utils/control', 'text!examples/flipcard/flipcard.html', 'examples/testmodule/testmodule'], function(css, control, html, testmodule, flipcardStyles, styles2, styles3, styles4 ){
-   css.loadInternal('examples/flipcard/flipcard.css');
+    console.log("flipcard.js is throwing an error in safari! ha!");
+    css.loadInternal('examples/flipcard/flipcard.css');
    css.loadInternal('examples/flipcard/test2.css');
    css.loadInternal('examples/flipcard/test3.css');
    css.loadInternal('examples/flipcard/test4.css');
