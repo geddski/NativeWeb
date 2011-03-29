@@ -1,8 +1,5 @@
-define(['utils/css', 'utils/control', 'text!examples/flipcard/flipcard.html', 'examples/testmodule/testmodule', 'text!examples/flipcard/flipcard.css', 'text!examples/flipcard/test2.css', 'text!examples/flipcard/test3.css', 'text!examples/flipcard/test4.css'], function(css, control, html, testmodule, flipcardStyles, styles2, styles3, styles4 ){
-    css.loadInternal(flipcardStyles, 'examples/flipcard/flipcard.css');
-   css.loadInternal(styles2, 'examples/flipcard/test2.css');
-   css.loadInternal(styles3, 'examples/flipcard/test3.css');
-   css.loadInternal(styles4, 'examples/flipcard/test4.css');
+define(['utils/css', 'utils/control', 'text!examples/flipcard/flipcard.html', 'text!examples/flipcard/flipcard.css'], function(css, control, html, styles){
+    css.loadInternal(styles, 'examples/flipcard/flipcard.css');
 
    function FlipCard(id){
         this.id = id;

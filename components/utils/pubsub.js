@@ -1,37 +1,52 @@
 define(function() {
     var publisher = {
         subscribers: {
-            any: [] // event type: subscribers
+            any: []
         },
-        subscribe: function (fn, type) {
+        on: function (type, fn, context) {
             type = type || 'any';
+            fn = typeof fn === "function" ? fn : context[fn];
+
             if (typeof this.subscribers[type] === "undefined") {
                 this.subscribers[type] = [];
             }
-            this.subscribers[type].push(fn);
+            this.subscribers[type].push({fn: fn, context: context || this});
         },
-        unsubscribe: function (fn, type) {
-            this.visitSubscribers('unsubscribe', fn, type);
+        remove: function (type, fn, context) {
+            this.visitSubscribers('unsubscribe', type, fn, context);
         },
-        publish: function (publication, type) {
-            this.visitSubscribers('publish', publication, type);
+        fire: function (type, publication) {
+            this.visitSubscribers('publish', type, publication);
         },
-        visitSubscribers: function (action, arg, type) {
+        visitSubscribers: function (action, type, arg, context) {
             var pubtype = type || 'any',
                     subscribers = this.subscribers[pubtype],
                     i,
-                    max = subscribers.length;
+                    max = subscribers ? subscribers.length : 0;
 
             for (i = 0; i < max; i += 1) {
                 if (action === 'publish') {
-                    subscribers[i](arg);
+                    subscribers[i].fn.call(subscribers[i].context, arg);
                 } else {
-                    if (subscribers[i] === arg) {
+                    if (subscribers[i].fn === arg && subscribers[i].context === context) {
                         subscribers.splice(i, 1);
                     }
                 }
             }
         }
     };
-    return publisher;
+
+    function makePublisher(o) {
+        var i;
+        for (i in publisher) {
+            if (publisher.hasOwnProperty(i) && typeof publisher[i] === "function") {
+                o[i] = publisher[i];
+            }
+        }
+        o.subscribers = {any: []};
+    }
+
+    return{
+        makePublisher: makePublisher
+    }
 });
