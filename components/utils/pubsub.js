@@ -1,5 +1,6 @@
 define(function() {
-    var publisher = {
+    var pubsub = {},
+    publisher = {
         subscribers: {
             any: []
         },
@@ -46,7 +47,12 @@ define(function() {
         o.subscribers = {any: []};
     }
 
-    return{
-        makePublisher: makePublisher
-    }
+    //enable 'global' custom events with the pubsub object being a publisher,
+    //this is similar to (but better performance than) using $(document).bind/trigger
+    makePublisher(pubsub);
+    /*include makePublisher for cases where you don't want 'global' custom events,
+    for example a module could be a publisher and publish its own events
+    and anyone that had that module as a dependency could subscribe */
+    pubsub.makePublisher = makePublisher;
+    return pubsub;
 });

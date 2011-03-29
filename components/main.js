@@ -7,7 +7,7 @@ require({
     priority: ['jquery']
 });
 
-require(['jquery', 'utils/css', 'sammy-0.6.3.min', 'examples/flipcard/flipcard', 'text!../css/reset.css', 'text!../css/theme.css'], function($, css, sammy, FlipCard, reset, theme){
+require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'examples/flipcard/flipcard', 'text!../css/reset.css', 'text!../css/theme.css'], function($, css, pubsub, sammy, FlipCard, reset, theme){
     css.loadInternal(reset, '../css/reset.css', true);
     css.loadInternal(theme, '../css/theme.css');
 
@@ -29,7 +29,7 @@ require(['jquery', 'utils/css', 'sammy-0.6.3.min', 'examples/flipcard/flipcard',
     container.append(flipCard3.element);
 
     //-----subscribe to flipcard-select event
-    FlipCard.prototype.on('flipcard-selected', function(flipCard){
+    pubsub.on('flipcard-selected', function(flipCard){
         //deselect other flipCards
         for(var i=0; i < flipCards.length; i += 1){
             if(flipCards[i] !== flipCard){

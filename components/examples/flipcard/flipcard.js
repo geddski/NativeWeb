@@ -16,13 +16,10 @@ define(['utils/css', 'utils/control', 'utils/pubsub', 'text!examples/flipcard/fl
         });
     }
 
-    //mixin pubsub capability
-    pubsub.makePublisher(FlipCard.prototype);
-
     FlipCard.prototype.select = function(){
         this.element.addClass('active');
         this.selected = true;
-        this.fire('flipcard-selected', this);
+        pubsub.fire('flipcard-selected', this);
     };
 
     FlipCard.prototype.deselect = function(){
