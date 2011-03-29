@@ -30,25 +30,37 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'examples/fli
 
     //-----subscribe to flipcard-select event
     pubsub.on('flipcard-selected', function(flipCard){
-        //deselect other flipCards
-        for(var i=0; i < flipCards.length; i += 1){
-            if(flipCards[i] !== flipCard){
-                flipCards[i].deselect();
-            }
-        }
-        //todo: slide to the selected flipCard
+        deselectOtherFlipCards(flipCard);
     });
     
     //-----sammy single-page routes
     var app = $.sammy(function() {
         this.get('#/', function() {
-            //todo home
+            //todo think of good example for sammy
         });
 
-        this.get('#/flipcard/:flipcard', function() {
-            console.log(this.params['flipcard']);
-        });
+//        this.get('#/flipcard/:flipcard', function() {
+//            alert(this.params['flipcard']);
+//            var flipcard = getFlipCard(this.params['flipcard']);
+//        });
     });
     app.run();
+
+    //-----application code needed for example
+    function getFlipCard(id){
+        for(var i=0; i < flipCards.length; i += 1){
+            if(flipCards[i].id === id){
+                return flipCards[i];
+            }
+        }
+    }
+
+    function deselectOtherFlipCards(flipCard){
+        for(var i=0; i < flipCards.length; i += 1){
+            if(flipCards[i] !== flipCard){
+                flipCards[i].deselect();
+            }
+        }
+    }
     
 });
