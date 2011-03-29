@@ -1,8 +1,8 @@
 //Configure RequireJS
 require({
     paths:{
-        'jquery': 'https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min'
-//        'jquery': 'jquery'
+//        'jquery': 'https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min'
+        'jquery': 'jquery'
     },
     priority: ['jquery']
 });
