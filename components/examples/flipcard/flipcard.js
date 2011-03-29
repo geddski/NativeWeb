@@ -1,29 +1,34 @@
-define(['utils/css', 'utils/control', 'text!examples/flipcard/flipcard.html', 'examples/testmodule/testmodule', 'text!examples/flipcard/flipcard.css', 'text!examples/flipcard/test2.css', 'text!examples/flipcard/test3.css', 'text!examples/flipcard/test4.css'], function(css, control, html, testmodule, flipcardStyles, styles2, styles3, styles4 ){
-    css.loadInternal(flipcardStyles, 'examples/flipcard/flipcard.css');
-   css.loadInternal(styles2, 'examples/flipcard/test2.css');
-   css.loadInternal(styles3, 'examples/flipcard/test3.css');
-   css.loadInternal(styles4, 'examples/flipcard/test4.css');
+define(['utils/css', 'utils/control', 'utils/pubsub', 'text!examples/flipcard/flipcard.html', 'text!examples/flipcard/flipcard.css'], function(css, control, pubsub, html, styles) {
+    css.loadInternal(styles, 'examples/flipcard/flipcard.css');
 
-   function FlipCard(id){
+    function FlipCard(id) {
         this.id = id;
         this.element = $(html);
+        this.selected = false;
         var instance = this;
 
-       //wire up fields mapped to DOM elements
+        //wire up fields mapped to DOM elements
         control.mapFields(this, this.element, ['title']);
 
-       //events
-        this.element.click(function(){
-            instance.element.toggleClass('active');
-            //todo fire custom event
-            //todo move this out into a history controller or something (fire event first)
-            var state = {
-                object: 'flipcard',
-                number: instance.id
-            };
-//           window.history.pushState(state, '', '/flipcard/' + state.number);
+        //events
+        this.element.click(function() {
+            instance.selected ? instance.deselect() : instance.select();
         });
     }
+
+    FlipCard.prototype.select = function(){
+        this.element.addClass('active');
+        this.selected = true;
+        pubsub.fire('flipcard-selected', this);
+    };
+
+    FlipCard.prototype.deselect = function(){
+        if(this.selected){
+            this.element.removeClass('active');
+            this.selected = false;
+        }
+    };
+
     return FlipCard;
 });
 
