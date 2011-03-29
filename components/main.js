@@ -11,19 +11,35 @@ require(['jquery', 'utils/css', 'sammy-0.6.3.min', 'examples/flipcard/flipcard',
     css.loadInternal(reset, '../css/reset.css', true);
     css.loadInternal(theme, '../css/theme.css');
 
-    var container = $('#container');
+    var container = $('#container'),
+        flipCards = [];
 
+    //-----instanciate FlipCards
     var flipCard = new FlipCard(1);
+    flipCards.push(flipCard);
     container.append(flipCard.element);
 
     var flipCard2 = new FlipCard(2);
-//    flipCard2.element.addClass('active');
+    flipCards.push(flipCard2);
     container.append(flipCard2.element);
+    flipCard2.select();
 
     var flipCard3 = new FlipCard(3);
+    flipCards.push(flipCard3);
     container.append(flipCard3.element);
 
-    //sammy single-page routes
+    //-----subscribe to flipcard-select event
+    FlipCard.prototype.on('flipcard-selected', function(flipCard){
+        //deselect other flipCards
+        for(var i=0; i < flipCards.length; i += 1){
+            if(flipCards[i] !== flipCard){
+                flipCards[i].deselect();
+            }
+        }
+        //todo: slide to the selected flipCard
+    });
+    
+    //-----sammy single-page routes
     var app = $.sammy(function() {
         this.get('#/', function() {
             //todo home

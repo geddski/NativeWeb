@@ -1,26 +1,37 @@
-define(['utils/css', 'utils/control', 'text!examples/flipcard/flipcard.html', 'text!examples/flipcard/flipcard.css'], function(css, control, html, styles){
+define(['utils/css', 'utils/control', 'utils/pubsub', 'text!examples/flipcard/flipcard.html', 'text!examples/flipcard/flipcard.css'], function(css, control, pubsub, html, styles) {
     css.loadInternal(styles, 'examples/flipcard/flipcard.css');
 
-   function FlipCard(id){
+    function FlipCard(id) {
         this.id = id;
         this.element = $(html);
+        this.selected = false;
         var instance = this;
 
-       //wire up fields mapped to DOM elements
+        //wire up fields mapped to DOM elements
         control.mapFields(this, this.element, ['title']);
 
-       //events
-        this.element.click(function(){
-            instance.element.toggleClass('active');
-            //todo fire custom event
-            //todo move this out into a history controller or something (fire event first)
-            var state = {
-                object: 'flipcard',
-                number: instance.id
-            };
-//           window.history.pushState(state, '', '/flipcard/' + state.number);
+        //events
+        this.element.click(function() {
+            instance.selected ? instance.deselect() : instance.select();
         });
     }
+
+    //mixin pubsub capability
+    pubsub.makePublisher(FlipCard.prototype);
+
+    FlipCard.prototype.select = function(){
+        this.element.addClass('active');
+        this.selected = true;
+        this.fire('flipcard-selected', this);
+    };
+
+    FlipCard.prototype.deselect = function(){
+        if(this.selected){
+            this.element.removeClass('active');
+            this.selected = false;
+        }
+    };
+
     return FlipCard;
 });
 
