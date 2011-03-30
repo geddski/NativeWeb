@@ -7,7 +7,7 @@ require({
     priority: ['jquery']
 });
 
-require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'examples/flipcard/flipcard', 'text!../css/reset.css', 'text!../css/theme.css'], function($, css, pubsub, sammy, FlipCard, reset, theme){
+require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'examples/flipcard/flipcard', 'text!css/reset.css', 'text!css/theme.css'], function($, css, pubsub, sammy, FlipCard, reset, theme){
     css.loadInternal(reset, '../css/reset.css', true);
     css.loadInternal(theme, '../css/theme.css');
 
