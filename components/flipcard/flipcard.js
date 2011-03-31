@@ -1,5 +1,5 @@
-define(['utils/css', 'utils/control', 'utils/pubsub', 'text!examples/flipcard/flipcard.html', 'text!examples/flipcard/flipcard.css'], function(css, control, pubsub, html, styles) {
-    css.loadInternal(styles, 'examples/flipcard/flipcard.css');
+define(['utils/css', 'utils/control', 'utils/pubsub', 'text!flipcard/flipcard.html', 'text!flipcard/flipcard.css'], function(css, control, pubsub, html, styles) {
+    css.loadInternal(styles, 'flipcard/flipcard.css');
 
     function FlipCard(id) {
         this.id = id;

@@ -6,7 +6,7 @@ require({
     priority: ['jquery']
 });
 
-require(["jquery", "qunit", "utils/control"], function($, qunitNull, control){
+require(["jquery", "qunit", "utils/control", "utils/css"], function($, qunitNull, control, css){
     $(document).ready(function(e){
         //sample test
         test("sample test", function() {
@@ -15,7 +15,7 @@ require(["jquery", "qunit", "utils/control"], function($, qunitNull, control){
           equals( "hello", value, "We expect value to be hello" );
         });
 
-        //test control.js
+        //-----test control.js
         module("control.js");
         test("mapFields test", function(){
             //setup
@@ -36,6 +36,12 @@ require(["jquery", "qunit", "utils/control"], function($, qunitNull, control){
 
             //teardown
             elem.remove();
+        });
+
+        //-----test css.js
+        module("css.js");
+        test("URL rewrite", function(){
+//            var originalURL = ""
         });
     });
 });
