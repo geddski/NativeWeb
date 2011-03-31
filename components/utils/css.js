@@ -1,4 +1,8 @@
 define(['require'], function(require) {
+    /**
+     * CSS Loading Module
+     * limitation: relative CSS files must be within your app's baseUrl directory.
+     */
     var loadedStyleTags = [];
     var head = document.head || (document.head = document.getElementsByTagName("head")[0]);
 
@@ -25,41 +29,26 @@ define(['require'], function(require) {
 
     function fixPaths(styles, resourceName){
         var fixedStyles = styles.replace(/url\(([^)]+)\)/g, function(fullMatch, originalURL){
-            console.log("old url : " , originalURL);
+            //only fix relative paths. 
+            if(originalURL.indexOf('/') === 0 || originalURL.indexOf('http://') === 0){ return 'url(' + originalURL + ')'; }
             var index = originalURL.lastIndexOf("."),
                     modName = originalURL.substring(0, index),
-                    ext = '.' + originalURL.substring(index + 1, originalURL.length);
-
-            console.log("modName : " , modName);
-            console.log("ext : " , ext);
-
-            var baseName = resourceName.slice(0, resourceName.lastIndexOf('/')) + '/';
-            var fullName = baseName + modName;
-            console.log("fullName : " , fullName);
-
-            var fixedURL = require.nameToUrl(fullName, ext);
-            console.log("fixedURL : " , fixedURL);
+                    ext = '.' + originalURL.substring(index + 1, originalURL.length),
+                    baseName = resourceName.slice(0, resourceName.lastIndexOf('/')) + '/',
+                    fullName = baseName + modName,
+                    fixedURL = require.nameToUrl(fullName, ext);
+            //console.log("old url : " , originalURL);
+            //console.log("modName : " , modName);
+            //console.log("ext : " , ext);
+            //console.log("fullName : " , fullName);
+            //console.log("fixedURL : " , fixedURL);
             return 'url(' + fixedURL + ')';
         });
         return fixedStyles;
     }
 
     function loadInternal(styles, resourceName, isPlacedAtTop) {
-//        console.log("resourceName : " , resourceName);
-        var index = resourceName.indexOf(".");
-        var modName = resourceName.substring(0, index);
-//        var ext = resourceName.substring(index + 1, name.length);
-//        console.log("modName : " , modName);
-//        console.log("ext : " , ext);
-
-//        var url = require.nameToUrl(modName, ' ');
-//        console.log("url : " , url);
-        
-
-
-
-
-        styles = fixPaths(styles, resourceName, '../components/');
+        styles = fixPaths(styles, resourceName);
         insertStyleTag(styles, resourceName, isPlacedAtTop);
     }
 
@@ -71,34 +60,12 @@ define(['require'], function(require) {
     }
 
     function loadExternal(url) {
-        //note: no guarantee of order yet.
+        //note: no guarantee of order tested yet. 
         insertLinkTag(url);
     }
-
-//    function convertURL(base, res) {
-//        var dirs = 0;
-//        var bits = res.split('../');
-//        var res_path = '';
-//        for (var i = 0; i < bits.length; i++) {
-//            if (bits[i] == '') {
-//                dirs++;
-//            } else {
-//                res_path += bits[i];
-//            }
-//        }
-//
-//        var base_bits = base.split('/');
-//        var path = '';
-//        for (var j = 0; j < base_bits.length - dirs - 1; j++) {
-//            path += base_bits[j] + '/';
-//        }
-//        path += res_path;
-//        return path
-//    }
 
     return {
         loadInternal: loadInternal,
         loadExternal: loadExternal
-        //todo loadExternal(url)
     }
 });
