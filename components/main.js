@@ -16,16 +16,21 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'flipcard/fli
 
     //-----instanciate FlipCards
     var flipCard = new FlipCard(1);
+    flipCard.element.addClass('left');
+    flipCard.title.html("FlipCard1");
     flipCards.push(flipCard);
     container.append(flipCard.element);
 
     var flipCard2 = new FlipCard(2);
+    flipCard2.title.html("FlipCard2");
     flipCards.push(flipCard2);
     container.append(flipCard2.element);
     flipCard2.select();
 
     var flipCard3 = new FlipCard(3);
+    flipCard3.title.html("FlipCard3");
     flipCards.push(flipCard3);
+    flipCard3.element.addClass('right');
     container.append(flipCard3.element);
 
     //-----subscribe to flipcard-select event

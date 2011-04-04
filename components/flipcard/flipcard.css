@@ -1,16 +1,14 @@
 .flipcard{
-    width: 215px;
+    width: 360px;
     height: 300px;
     background: #D4D4D4 url(images/flag.jpg) no-repeat 10px 10px;
     color: #fff;
     padding: 10px;
-    border: 2px solid #666;
-    float: left;
-    margin: 50px;
+    /*border: 2px solid #666;*/
     border-radius: 10px;
     -webkit-transition: all 500ms;
     -moz-transition: all 500ms;
-    /*box-shadow: 0px 3px 1px #000;*/
+    cursor: pointer;
 }
 
 .flipcard h1{
