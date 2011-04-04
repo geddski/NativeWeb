@@ -5,7 +5,7 @@ define(function(){
             var field
             for (var i = 0, length = fields.length, field; i < length; i +=1) {
                 field = fields[i];
-                object[field] = element.find('[data-field]='+field).removeAttr('data-field');
+                object[field] = element.find('[data-field='+field+']').removeAttr('data-field');
             }
         }
     };
