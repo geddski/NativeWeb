@@ -3,6 +3,7 @@ define(['require'], function(require) {
      * CSS Loading Module
      * limitation: relative CSS files must be within your app's baseUrl directory.
      */
+    
     var loadedStyleTags = [];
     var head = document.head || (document.head = document.getElementsByTagName("head")[0]);
 
