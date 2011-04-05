@@ -5,8 +5,8 @@
     color: #fff;
     padding: 10px;
     -webkit-transition: all 500ms;
-    -moz-transition: -moz-transform 300ms,
-        top 300ms 300ms;
+    /*-moz-transition: top 300ms, -moz-transform 300ms 300ms;*/
+    -moz-transition: -moz-transform 300ms, top 300ms 300ms;
     cursor: pointer;
 }
 
@@ -17,6 +17,7 @@
 }
 
 .flipcard.active{
+    -moz-transition: -moz-transform 300ms, top 300ms 300ms;
     top: 65px;
     -webkit-transform: scale(1.2);
     -moz-transform: scale(1.2);
