@@ -18,5 +18,9 @@
     {
     "name" : "Black Bear",
     "image": "black-bear.jpg"
+    },
+    {
+    "name" : "Gorilla",
+    "image": "gorilla.jpg"
     }
 ]
