@@ -68,7 +68,6 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'flipcard/fli
             //select a flipcard based on the URL
             this.get('#/flipcard/:flipcard', function() {
                 var flipCard = getFlipCard(this.params['flipcard']);
-                console.log("flipCard : " , flipCard);
                     flipCard.select();
                     deselectOtherFlipCards(flipCard);
                     arrangeFlipCards(flipCard);
