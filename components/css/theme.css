@@ -29,3 +29,10 @@ body{
 .flipcard.right{
     left: 780px;
 }
+
+.flipcard.hide-left{
+    left: -380px;
+}
+.flipcard.hide-right{
+    left: 960px;
+}

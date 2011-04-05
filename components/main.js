@@ -12,7 +12,9 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'flipcard/fli
     css.loadInternal(theme, 'css/theme.css');
 
     var container = $('#container'),
-        flipCards = [];
+        flipCards = [],
+        leftCard,
+        rightCard;
 
     //get data and populate
     $.ajax({
@@ -24,6 +26,7 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'flipcard/fli
     //-----subscribe to flipcard-select event
     pubsub.on('flipcard-selected', function(flipCard){
         deselectOtherFlipCards(flipCard);
+        centerFlipCard(flipCard);
     });
     
     //-----sammy single-page routes
@@ -38,11 +41,13 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'flipcard/fli
 //    app.run();
 
     function populate(data){
-        var fragment = document.createDocumentFragment();
-        for (var i = 0; i < data.length; i += 1) {
-            var id = i + 1;
-            var obj = data[i];
-            var flipCard = new FlipCard(id);
+        var i, id, obj, flipCard,
+              fragment = document.createDocumentFragment();
+
+        for (i = 0; i < data.length; i += 1) {
+            id = i + 1;
+            obj = data[i];
+            flipCard = new FlipCard(id);
             flipCard.title.html(obj.name);
             flipCard.image.attr('src', 'components/images/' + obj.image);
             flipCards.push(flipCard);
@@ -51,8 +56,8 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'flipcard/fli
         }
 
         //arrange flipcards
-        flipCards[0].element.addClass('left');
-        flipCards[2].element.addClass('right');
+        leftCard = flipCards[0].element.addClass('left');
+        rightCard = flipCards[2].element.addClass('right');
 
         //insert into DOM
         container.append(fragment);
@@ -71,6 +76,33 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'flipcard/fli
             if(flipCards[i] !== flipCard){
                 flipCards[i].deselect();
             }
+        }
+    }
+
+    function centerFlipCard(flipCard){
+        //new selection removes left or right class if applicable
+        flipCard.element.removeClass('left right');
+
+        //previous sibling gets class of 'left'
+        var prev = flipCard.element.prev().removeClass('hide-left hide-right').addClass('left');
+//        leftCard = prev;
+
+        //next sibling gets class of 'right'
+        var next = flipCard.element.next().removeClass('hide-left hide-right').addClass('right');
+//        rightCard = next;
+
+        //previous left gets hideleft
+        console.log("prev : " , prev);
+        console.log("leftCard : " , leftCard);
+        console.log(prev.get(0) === leftCard.get(0));
+        
+        if(flipCard.element !== leftCard && prev.get(0) !== leftCard.get(0)){
+            leftCard.addClass('hide-left').removeClass('left right');
+        }
+
+        //previous right gets hideright
+        if(flipCard.element !== rightCard && next.get(0) !== rightCard.get(0)){
+            rightCard.addClass('hide-right').removeClass('left right');
         }
     }
     
