@@ -12,14 +12,13 @@ define(['utils/css', 'utils/control', 'utils/pubsub', 'text!flipcard/flipcard.ht
 
         //events
         this.element.click(function() {
-            instance.selected ? instance.deselect() : instance.select();
+            pubsub.fire('flipcard-selected', instance);
         });
     }
 
     FlipCard.prototype.select = function(){
         this.element.addClass('active');
         this.selected = true;
-        pubsub.fire('flipcard-selected', this);
     };
 
     FlipCard.prototype.deselect = function(){

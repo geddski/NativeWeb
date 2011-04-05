@@ -23,16 +23,16 @@ body{
 }
 
 .flipcard.left{
-    left: -180px;
+    /*left: -180px;*/
 }
 
 .flipcard.right{
-    left: 780px;
+    /*left: 780px;*/
 }
 
 .flipcard.hide-left{
-    left: -380px;
+    /*left: -380px;*/
 }
 .flipcard.hide-right{
-    left: 960px;
+    /*left: 960px;*/
 }

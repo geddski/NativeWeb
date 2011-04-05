@@ -13,8 +13,12 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'flipcard/fli
 
     var flipCards = [],
         leftCard,
-        centerCard,
         rightCard,
+        hideleft = -380,
+        left = -180,
+        active = 300,
+        right = 780,
+        hideright = 960,
         container = $('#container');
 
     //get data and populate
@@ -26,8 +30,6 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'flipcard/fli
 
     //-----subscribe to flipcard-select event
     pubsub.on('flipcard-selected', function(flipCard){
-        deselectOtherFlipCards(flipCard);
-        centerFlipCard(flipCard);
         //change the history hash, let the Sammy route do the rest
         window.location.hash = "/flipcard/" + flipCard.id;
     });
@@ -44,15 +46,15 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'flipcard/fli
             flipCard.image.attr('src', 'components/images/' + obj.image);
             flipCards.push(flipCard);
             if(i > 2){
-                flipCard.element.addClass('hide-right');
+                flipCard.element.css('left', hideright);
             }
             //add the element (not the jQuery wrapper) to the doc fragment
             fragment.appendChild(flipCard.element.get(0));
         }
 
-        //arrange flipcards
-        leftCard = flipCards[0].element.addClass('left');
-        rightCard = flipCards[2].element.addClass('right');
+        //arrange flipcards' starting positions
+        leftCard = flipCards[0].element.css('left', left);
+        rightCard = flipCards[2].element.css('left', right);
 
         //insert into DOM
         container.append(fragment);
@@ -62,19 +64,14 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'flipcard/fli
     }
 
     function setupHistory(){
-        //-----sammy single-pageness
-        var singlePageApp = $.sammy(function() {
-
+        var singlePageApp = $.sammy(function(){
             //select a flipcard based on the URL
             this.get('#/flipcard/:flipcard', function() {
                 var flipCard = getFlipCard(this.params['flipcard']);
-                if(!flipCard.selected){
                     flipCard.select();
                     deselectOtherFlipCards(flipCard);
-                    centerFlipCard(flipCard);
-                }
+                    arrangeFlipCards(flipCard);
             });
-
         });
         singlePageApp.run();
     }
@@ -95,40 +92,28 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'flipcard/fli
         }
     }
 
-    function centerFlipCard(flipCard){
-        //new selection removes other classes if applicable
-        flipCard.element.removeClass('left right hide-left hide-right');
-
-        //move the previously centered card
-        if(centerCard){
-            centerCard.addClass('hide-right');//todo determine correct hide direction
-        }
-
-        //previous sibling gets class of 'left'
-        var prev = flipCard.element.prev().removeClass('hide-left hide-right').addClass('left');
-//        leftCard = prev;
-
-        //next sibling gets class of 'right'
-        var next = flipCard.element.next().removeClass('hide-left hide-right').addClass('right');
-//        rightCard = next;
-
-        //previous left gets hideleft
-        if(flipCard.element.get(0) !== leftCard.get(0) && prev.get(0) !== leftCard.get(0)){
-            leftCard.addClass('hide-left').removeClass('left right');
-        }
-
-        //previous right gets hideright
-        console.log("flipCard.element : " , flipCard.element);
-        console.log("rightCard.get(0) : " , rightCard.get(0));
-        if(flipCard.element.get(0) !== rightCard.get(0) && next.get(0) !== rightCard.get(0)){
-            rightCard.addClass('hide-right').removeClass('left right');
-        }
-
-        //store new cards
-        leftCard = prev;
-        rightCard = next;
-        centerCard = flipCard.element;
+    function arrangeFlipCards(flipCard){
+        var index, card, i, length,
+                newLeft = getFlipCard(flipCard.id -1),
+               newRight = getFlipCard(flipCard.id + 1);
         
+        //apply the correct leftPosition to the newLeft, newRight, and flipCard
+        if (newLeft) newLeft.element.css('left', left);
+        flipCard.element.css('left', active);
+        if (newRight) newRight.element.css('left', right);
+
+        //hide left every card before the newLeft
+        length = newLeft ? newLeft.id - 1 : 0;
+        for (i = 0; i < length; i += 1){
+            card = flipCards[i];
+            card.element.css('left', hideleft);
+        }
+        
+        //hide right every card after the newRight
+        index = newRight ? newRight.id : flipCards.length;
+        for (index; index < flipCards.length; index += 1){
+             card = flipCards[index];
+                card.element.css('left', hideright);
+        }
     }
-    
 });
