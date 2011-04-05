@@ -10,5 +10,9 @@
     {
     "name" : "Elephant",
     "image": "elephant.jpg"
+    },
+    {
+    "name" : "Polar Bear",
+    "image": "polar-bear.jpg"
     }
 ]
