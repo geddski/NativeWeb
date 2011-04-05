@@ -41,5 +41,5 @@
 
 .flipcard.active .info{
     height: 75px;
-    -moz-transition: height 300ms 600ms;
+    -moz-transition: height 200ms 400ms ease-out;
 }
