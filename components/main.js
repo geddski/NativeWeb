@@ -15,6 +15,11 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'flipcard/fli
         leftCard,
         centerCard,
         rightCard,
+        hideleft = -380,
+        left = -180,
+        active = 300,
+        right = 780,
+        hideright = 960,
         container = $('#container');
 
     //get data and populate
@@ -43,22 +48,24 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'flipcard/fli
             flipCard.title.html(obj.name);
             flipCard.image.attr('src', 'components/images/' + obj.image);
             flipCards.push(flipCard);
+            //TODO refactor to avoid duplicate code doing the arranging
             if(i > 2){
-                flipCard.element.addClass('hide-right');
+                flipCard.element.css('left', hideright);
             }
             //add the element (not the jQuery wrapper) to the doc fragment
             fragment.appendChild(flipCard.element.get(0));
         }
 
         //arrange flipcards
-        leftCard = flipCards[0].element.addClass('left');
-        rightCard = flipCards[2].element.addClass('right');
+        leftCard = flipCards[0].element.css('left', left);
+        rightCard = flipCards[2].element.css('left', right);
 
         //insert into DOM
         container.append(fragment);
 
         //setup history now that data is available
-        setupHistory();
+        //TODO seems to be calling twice on page load. active check no longer the way?
+//        setupHistory();
     }
 
     function setupHistory(){
@@ -96,6 +103,57 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'flipcard/fli
     }
 
     function centerFlipCard(flipCard){
+        var newLeft = getFlipCard(flipCard.id -1);
+        var newRight = getFlipCard(flipCard.id + 1);
+        console.log("newLeft : " , newLeft);
+        console.log("newRight : " , newRight);
+
+        //apply the correct leftPosition to the newLeft, newRight, and flipCard
+        if (newLeft) newLeft.element.css('left', left);
+        flipCard.element.css('left', active);
+        if (newRight) newRight.element.css('left', right);
+
+
+        //loop through the flipcards to be hidden left
+        var length = newLeft ? newLeft.id - 1 : 0;
+        console.log("length : " , length);
+        for (var i = 0; i < length; i += 1){
+            var card = flipCards[i];
+            card.element.css('left', hideleft);
+            console.log("card hidden left: " , card);
+        }
+        
+        //loop through the flipcards to be hidden right
+        var index = newRight ? newRight.id : flipCards.length;
+//        console.log("index : " , index);
+//        console.log("flipCards : " , flipCards);
+        for (index; index < flipCards.length; index += 1){
+            var card = flipCards[index];
+                card.element.css('left', hideright);
+        }
+
+//        var newLeft = flipCard.element.prev();
+//        var newRight = flipCard.element.next();
+//        var leftPosition = hideleft;
+
+//        //loop through the flipcards, applying the correct left position
+//        for (var i= 0; i < flipCards.length; i += 1){
+//            var card = flipCards[i];
+//            if(card.element.get(0) === newLeft.get(0)){
+//                leftPosition = left;
+//            }
+//            else if(card.element.get(0) === flipCard.element.get(0)){
+//                leftPosition = active;
+//            }
+//            else if(card.element.get(0) === newRight.get(0)){
+//                leftPosition = right;
+//            }
+            //TODO hideright
+//            card.element.css('left', leftPosition);
+//        }
+    }
+
+    function centerFlipCardBackup(flipCard){
         //new selection removes other classes if applicable
         flipCard.element.removeClass('left right hide-left hide-right');
 
