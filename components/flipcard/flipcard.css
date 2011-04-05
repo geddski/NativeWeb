@@ -1,25 +1,42 @@
 .flipcard{
     width: 360px;
-    height: 300px;
-    background: #D4D4D4 url(images/flag.jpg) no-repeat 10px 10px;
+    height: 360px;
+    background: #fff;
     color: #fff;
     padding: 10px;
-    /*border: 2px solid #666;*/
-    border-radius: 10px;
     -webkit-transition: all 500ms;
-    -moz-transition: all 500ms;
+    -moz-transition: -moz-transform 300ms,
+        top 300ms 300ms;
     cursor: pointer;
 }
 
 .flipcard h1{
-    text-shadow: 0px -1px 0px #444, 0px 1px 0px #EFEFEF ;
-    color: #8A8A8A;
+    text-shadow: 0px -1px 0px #333, 0px 1px 0px #EFEFEF;
+    color: #666;
     text-align:center;
-    margin-top:60px;
 }
 
 .flipcard.active{
-    -webkit-transform: scale(1.3);
-    -moz-transform: scale(1.3);
-    -ms-transform: scale(1.3);
+    top: 65px;
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+}
+
+.flipcard .info{
+    overflow: hidden;
+    height: 0px;
+    line-height: 32px;
+    background: #999;
+    margin-left: -10px;
+    margin-right: -10px;
+    border-radius: 0 0 10px 10px;
+    margin-top: 6px;
+    box-shadow: 0px 3px 3px #444 inset;
+    /*TODO: make flipcard NOT resize down also, no point*/
+    -moz-transition: height 300ms 300ms;
+}
+
+.flipcard.active .info{
+    height: 75px;
 }

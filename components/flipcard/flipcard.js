@@ -8,7 +8,7 @@ define(['utils/css', 'utils/control', 'utils/pubsub', 'text!flipcard/flipcard.ht
         var instance = this;
 
         //wire up fields mapped to DOM elements
-        control.mapFields(this, this.element, ['title']);
+        control.mapFields(this, this.element, ['title', 'image']);
 
         //events
         this.element.click(function() {

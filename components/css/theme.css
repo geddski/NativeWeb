@@ -16,7 +16,7 @@ body{
 
 .flipcard{
     position: absolute;
-    top: 100px;
+    top: 110px;
     left: 300px;
 }
 .flipcard.active{

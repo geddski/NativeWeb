@@ -1,0 +1,14 @@
+[
+    {
+        "name" : "Crocodile",
+        "image": "crocodile.jpg"
+    },
+    {
+        "name" : "Bobcat",
+        "image": "bobcat.jpg"
+    },
+    {
+    "name" : "Elephant",
+    "image": "elephant.jpg"
+    }
+]
