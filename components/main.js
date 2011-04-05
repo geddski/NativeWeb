@@ -31,8 +31,8 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'flipcard/fli
 
     //-----subscribe to flipcard-select event
     pubsub.on('flipcard-selected', function(flipCard){
-        deselectOtherFlipCards(flipCard);
-        centerFlipCard(flipCard);
+//        deselectOtherFlipCards(flipCard);
+//        centerFlipCard(flipCard);
         //change the history hash, let the Sammy route do the rest
         window.location.hash = "/flipcard/" + flipCard.id;
     });
@@ -65,7 +65,7 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'flipcard/fli
 
         //setup history now that data is available
         //TODO seems to be calling twice on page load. active check no longer the way?
-//        setupHistory();
+        setupHistory();
     }
 
     function setupHistory(){
@@ -75,11 +75,12 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'flipcard/fli
             //select a flipcard based on the URL
             this.get('#/flipcard/:flipcard', function() {
                 var flipCard = getFlipCard(this.params['flipcard']);
-                if(!flipCard.selected){
+                console.log("flipCard : " , flipCard);
+//                if(!flipCard.selected){
                     flipCard.select();
                     deselectOtherFlipCards(flipCard);
                     centerFlipCard(flipCard);
-                }
+//                }
             });
 
         });
@@ -103,90 +104,26 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'flipcard/fli
     }
 
     function centerFlipCard(flipCard){
+        console.log("centerFlipCard()");
         var newLeft = getFlipCard(flipCard.id -1);
         var newRight = getFlipCard(flipCard.id + 1);
-        console.log("newLeft : " , newLeft);
-        console.log("newRight : " , newRight);
-
         //apply the correct leftPosition to the newLeft, newRight, and flipCard
         if (newLeft) newLeft.element.css('left', left);
         flipCard.element.css('left', active);
         if (newRight) newRight.element.css('left', right);
 
-
-        //loop through the flipcards to be hidden left
+        //hide left every card before the newLeft
         var length = newLeft ? newLeft.id - 1 : 0;
-        console.log("length : " , length);
         for (var i = 0; i < length; i += 1){
             var card = flipCards[i];
             card.element.css('left', hideleft);
-            console.log("card hidden left: " , card);
         }
         
-        //loop through the flipcards to be hidden right
+        //hide right every card after the newRight
         var index = newRight ? newRight.id : flipCards.length;
-//        console.log("index : " , index);
-//        console.log("flipCards : " , flipCards);
         for (index; index < flipCards.length; index += 1){
             var card = flipCards[index];
                 card.element.css('left', hideright);
         }
-
-//        var newLeft = flipCard.element.prev();
-//        var newRight = flipCard.element.next();
-//        var leftPosition = hideleft;
-
-//        //loop through the flipcards, applying the correct left position
-//        for (var i= 0; i < flipCards.length; i += 1){
-//            var card = flipCards[i];
-//            if(card.element.get(0) === newLeft.get(0)){
-//                leftPosition = left;
-//            }
-//            else if(card.element.get(0) === flipCard.element.get(0)){
-//                leftPosition = active;
-//            }
-//            else if(card.element.get(0) === newRight.get(0)){
-//                leftPosition = right;
-//            }
-            //TODO hideright
-//            card.element.css('left', leftPosition);
-//        }
     }
-
-    function centerFlipCardBackup(flipCard){
-        //new selection removes other classes if applicable
-        flipCard.element.removeClass('left right hide-left hide-right');
-
-        //move the previously centered card
-        if(centerCard){
-            centerCard.addClass('hide-right');//todo determine correct hide direction
-        }
-
-        //previous sibling gets class of 'left'
-        var prev = flipCard.element.prev().removeClass('hide-left hide-right').addClass('left');
-//        leftCard = prev;
-
-        //next sibling gets class of 'right'
-        var next = flipCard.element.next().removeClass('hide-left hide-right').addClass('right');
-//        rightCard = next;
-
-        //previous left gets hideleft
-        if(flipCard.element.get(0) !== leftCard.get(0) && prev.get(0) !== leftCard.get(0)){
-            leftCard.addClass('hide-left').removeClass('left right');
-        }
-
-        //previous right gets hideright
-        console.log("flipCard.element : " , flipCard.element);
-        console.log("rightCard.get(0) : " , rightCard.get(0));
-        if(flipCard.element.get(0) !== rightCard.get(0) && next.get(0) !== rightCard.get(0)){
-            rightCard.addClass('hide-right').removeClass('left right');
-        }
-
-        //store new cards
-        leftCard = prev;
-        rightCard = next;
-        centerCard = flipCard.element;
-        
-    }
-    
 });
