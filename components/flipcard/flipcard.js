@@ -16,13 +16,13 @@ define(['utils/css', 'utils/control', 'utils/pubsub', 'text!flipcard/flipcard.ht
         });
     }
 
-    FlipCard.prototype.select = function(){
+    FlipCard.prototype.select = function() {
         this.element.addClass('active');
         this.selected = true;
     };
 
-    FlipCard.prototype.deselect = function(){
-        if(this.selected){
+    FlipCard.prototype.deselect = function() {
+        if (this.selected) {
             this.element.removeClass('active');
             this.selected = false;
         }

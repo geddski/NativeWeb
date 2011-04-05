@@ -4,7 +4,7 @@ define(['flipcard/flipcard'], function(FlipCard) {
             active = 300,
             right = 780,
             hideright = 960,
-            container = $('#container'),
+            container = $('#gallery'),
             flipCards = [];
 
     function deselectOtherFlipCards(flipCard) {
