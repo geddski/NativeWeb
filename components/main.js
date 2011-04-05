@@ -14,31 +14,12 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'flipcard/fli
     var container = $('#container'),
         flipCards = [];
 
-    //-----instanciate FlipCards from json data
+    //get data and populate
     $.ajax({
-        url: "data/baby-animals.json",
-        dataType: "json",
-        success: function(response) {
-            var fragment = document.createDocumentFragment();
-            for (var i = 0; i < response.length; i += 1) {
-                var id = i + 1;
-                var obj = response[i];
-                var flipCard = new FlipCard(id);
-                flipCard.title.html(obj.name);
-                flipCard.image.attr('src', 'components/images/' + obj.image);
-                flipCards.push(flipCard);
-                //add the element (not the jQuery wrapper) to the doc fragment
-                fragment.appendChild(flipCard.element.get(0));
-            }
-
-            //arrange flipcards
-            flipCards[0].element.addClass('left');
-            flipCards[2].element.addClass('right');
-
-            //insert into DOM
-            container.append(fragment);
-        }
-    });
+            url: "data/baby-animals.json",
+            dataType: "json",
+            success: populate
+        });
 
     //-----subscribe to flipcard-select event
     pubsub.on('flipcard-selected', function(flipCard){
@@ -56,7 +37,27 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy-0.6.3.min', 'flipcard/fli
 //    });
 //    app.run();
 
-    //-----application code needed for example
+    function populate(data){
+        var fragment = document.createDocumentFragment();
+        for (var i = 0; i < data.length; i += 1) {
+            var id = i + 1;
+            var obj = data[i];
+            var flipCard = new FlipCard(id);
+            flipCard.title.html(obj.name);
+            flipCard.image.attr('src', 'components/images/' + obj.image);
+            flipCards.push(flipCard);
+            //add the element (not the jQuery wrapper) to the doc fragment
+            fragment.appendChild(flipCard.element.get(0));
+        }
+
+        //arrange flipcards
+        flipCards[0].element.addClass('left');
+        flipCards[2].element.addClass('right');
+
+        //insert into DOM
+        container.append(fragment);
+    }
+
     function getFlipCard(id){
         for(var i=0; i < flipCards.length; i += 1){
             if(flipCards[i].id === id){
