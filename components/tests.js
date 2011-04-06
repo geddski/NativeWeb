@@ -1,7 +1,7 @@
 //Configure RequireJS
 require({
     paths:{
-        'jquery': 'https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min'
+        'jquery': 'jquery'
     },
     priority: ['jquery']
 });
@@ -38,10 +38,10 @@ require(["jquery", "qunit", "utils/control", "utils/css"], function($, qunitNull
             elem.remove();
         });
 
-        //-----test css.js
-        module("css.js");
-        test("URL rewrite", function(){
-//            var originalURL = ""
+        //-----test flipcard.js
+        module("flipcard.js");
+        test("FlipCard tests", function(){
+            //do some tests
         });
     });
 });
