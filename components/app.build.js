@@ -10,6 +10,6 @@
         { name: "tests" }
     ],
     optimizeCss: "standard",
-//    optimize: "none",
+//    optimize: "closure",
     inlineText: true
 })
