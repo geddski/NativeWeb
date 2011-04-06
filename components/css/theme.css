@@ -3,7 +3,7 @@ body{
     background: #000;
 }
 
-#container{
+#gallery{
     outline: 1px solid #fff;
     width: 960px;
     margin: 0 auto;
@@ -18,21 +18,4 @@ body{
     position: absolute;
     top: 65px;
     left: 300px;
-}
-.flipcard.active{
-}
-
-.flipcard.left{
-    /*left: -180px;*/
-}
-
-.flipcard.right{
-    /*left: 780px;*/
-}
-
-.flipcard.hide-left{
-    /*left: -380px;*/
-}
-.flipcard.hide-right{
-    /*left: 960px;*/
 }

@@ -4,10 +4,12 @@
     background: #fff;
     color: #fff;
     padding: 10px;
-    /*todo add webkit transitions*/
     -moz-transition: -moz-transform 200ms,
         left 200ms 200ms;
+    -webkit-transition: -webkit-transform 200ms,
+        left 200ms 200ms;
     -moz-animation-timing-function: ease-out;
+    -webkit-animation-timing-function: ease-out;
     cursor: pointer;
 }
 
@@ -20,7 +22,10 @@
 .flipcard.active{
     -moz-transition: -moz-transform 200ms,
         left 200ms 200ms;
+    -webkit-transition: -webkit-transform 200ms,
+        left 200ms 200ms;
     -moz-animation-timing-function: ease-out;
+    -webkit-animation-timing-function: ease-out;
     -webkit-transform: scale(1.2);
     -moz-transform: scale(1.2);
     -ms-transform: scale(1.2);
@@ -37,9 +42,11 @@
     margin-top: 6px;
     box-shadow: 0px 3px 3px #444 inset;
     -moz-transition: height 200ms 0ms;
+    -webkit-transition: height 200ms 0ms;
 }
 
 .flipcard.active .info{
     height: 75px;
-    -moz-transition: height 300ms 600ms;
+    -moz-transition: height 200ms 400ms ease-out;
+    -webkit-transition: height 200ms 400ms ease-out;
 }
