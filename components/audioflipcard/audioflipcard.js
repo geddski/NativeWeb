@@ -8,7 +8,7 @@ define(['flipcard/flipcard', 'utils/control', 'utils/css', 'text!audioflipcard/a
         FlipCard.apply(this, arguments);
 
         //add a new html field
-        this.element.find('.info').append('<audio data-field="audio" controls loop="loop"></audio>');
+        this.element.find('.info').append('<audio data-field="audio" controls></audio>');
         control.mapFields(this, this.element, ['audio']);
     }
 
