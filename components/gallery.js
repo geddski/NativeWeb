@@ -1,4 +1,4 @@
-define(['flipcard/flipcard'], function(FlipCard) {
+define(['audioflipcard/audioflipcard'], function(FlipCard) {
     var hideleft = -380,
             left = -180,
             active = 300,
@@ -25,6 +25,8 @@ define(['flipcard/flipcard'], function(FlipCard) {
             flipCard = new FlipCard(id);
             flipCard.title.html(obj.name);
             flipCard.image.attr('src', 'components/images/' + obj.image);
+            flipCard.audioSource = 'components/audio/' + obj.audio;
+
             flipCards.push(flipCard);
             if (i > 2) {
                 flipCard.element.css('left', hideright);

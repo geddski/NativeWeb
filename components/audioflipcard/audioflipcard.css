@@ -1,0 +1,14 @@
+.flipcard .info{
+    position: relative;
+}
+
+.flipcard .info h1{
+    position: relative;
+    bottom: 14px;
+}
+
+.flipcard audio{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}

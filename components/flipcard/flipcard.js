@@ -10,7 +10,7 @@ define(['utils/css', 'utils/control', 'utils/pubsub', 'text!flipcard/flipcard.ht
         //wire up fields mapped to DOM elements
         control.mapFields(this, this.element, ['title', 'image']);
 
-        //events
+        //fire custom event when clicked
         this.element.click(function() {
             pubsub.fire('flipcard-selected', instance);
         });

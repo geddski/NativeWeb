@@ -1,0 +1,32 @@
+[
+    {
+        "name" : "Crocodile",
+        "image": "crocodile.jpg",
+        "audio" : "crocodile.wav"
+    },
+    {
+        "name" : "Bobcat",
+        "image": "bobcat.jpg",
+        "audio" : "bobcat.wav"
+    },
+    {
+        "name" : "Elephant",
+        "image": "elephant.jpg",
+        "audio" : "elephant.wav"
+    },
+    {
+        "name" : "Polar Bear",
+        "image": "polar-bear.jpg",
+        "audio" : "polarbear.wav"
+    },
+    {
+        "name" : "Black Bear",
+        "image": "black-bear.jpg",
+         "audio" : "blackbear.wav"
+    },
+    {
+        "name" : "Gorilla",
+        "image": "gorilla.jpg",
+         "audio" : "gorilla.wav"
+    }
+]

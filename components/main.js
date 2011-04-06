@@ -10,7 +10,8 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy', 'gallery', 'text!css/re
 
     //get data and populate
     $.ajax({
-        url: "data/baby-animals.json",
+        //url: "data/baby-animals.json",
+        url: "data/baby-animals-with-audio.json",
         dataType: "json",
         success: function(data) {
             gallery.populate(data, setupHistory);
@@ -28,6 +29,7 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy', 'gallery', 'text!css/re
             //select a flipcard based on the URL
             this.get('#/flipcard/:flipcard', function() {
                 var flipCard = gallery.getFlipCard(this.params['flipcard']);
+                console.log("URL flipCard : " , flipCard);
                 flipCard.select();
                 gallery.deselectOtherFlipCards(flipCard);
                 gallery.arrangeFlipCards(flipCard);
