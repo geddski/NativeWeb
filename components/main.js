@@ -18,6 +18,17 @@ require(['jquery', 'utils/css', 'utils/pubsub', 'sammy', 'gallery', 'text!css/re
         }
     });
 
+
+    /*  Example of how to load modules on demand.
+     *  This helps speed up page load time
+     *  by not loading code/markup/styles that aren't  needed yet
+    */ 
+    //$('#feedback').click(function(e){
+    //   require(['feedback'], function(feedback){
+    //      //use the feedback module now that it is loaded    
+    //   });
+    //});
+
     //-----subscribe to flipcard-select event
     pubsub.on('flipcard-selected', function(flipCard) {
         //change the history hash, let the Sammy route do the rest
